@@ -3,12 +3,33 @@ const fs = require("fs");
 const merge = require("deepmerge");
 const prettier = require("prettier");
 
+const ALLOWED_FRAMEWORKS = ["shopify", "bigcommerce", "shopify_local"];
+const FALLBACK_FRAMEWORK = "shopify";
+
 function withFrameworkConfig(defaultConfig = {}) {
   // CHANGE FRAMEWORK by Changing the config file
   // const framework = "shopify";
   // const framework = "bigcommerce";
-  const framework = defaultConfig?.framework.name;
+  let framework = defaultConfig?.framework?.name;
   // 'defaultConfig' comes from the root/next.config.js
+
+  if (!framework) {
+    throw new Error(
+      "The API framework is missing, please add a a valid provider"
+    );
+  }
+
+  if (framework === "shopify_local") {
+    framework = FALLBACK_FRAMEWORK;
+  }
+
+  if (!ALLOWED_FRAMEWORKS.includes(framework)) {
+    throw new Error(
+      `The API framework: ${framework} cannot be found, please use of the Allowed Frameworks: ${ALLOWED_FRAMEWORKS.join(
+        ", "
+      )}`
+    );
+  }
 
   // path = "../shopify/next.config.js"
   const frameworkNextConfig = require(path.join(

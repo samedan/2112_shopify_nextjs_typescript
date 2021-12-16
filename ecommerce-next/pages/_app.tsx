@@ -1,7 +1,16 @@
+import "@assets/main.css";
 import { AppProps } from "next/app";
-import { Layout } from "@components/common";
+import { FC } from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const Noop: FC = ({ children }) => <>{children}</>;
+
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps & { Component: { Layout: FC } }) {
+  // if Layout is undefined go with Noop
+  const Layout = Component.Layout ?? Noop;
+
   return (
     <Layout>
       <Component {...pageProps} />

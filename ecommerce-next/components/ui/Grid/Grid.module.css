@@ -11,11 +11,14 @@
 
     @screen lg {
       height: inherit;
+      max-height: 100%;
     }
   }
 }
 
 .layoutA {
+  /* 6x0 + 1 = target elements 1, 7, 13 , n=0 */
+  /* 6x0 + 5 = target element 5, 11, 17 , n=0 */
   & > *:nth-child(6n + 1),
   & > *:nth-child(6n + 5) {
     @screen lg {

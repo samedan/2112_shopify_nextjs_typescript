@@ -1,0 +1,32 @@
+.parent {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+}
+
+.child {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin: 1px;
+  /* flexgrow | flex-shrink | flex-basis */
+  /* flex: 1; overides the dimensions, takes all available space */
+  /* flex-grow: 1;
+  flex-shrink: 1; */
+}
+
+/* .child:nth-child(2n) {
+  flex-grow: 1;
+  /* flex-shrink: 2; */
+/*}  */
+
+/* FLEX BASIS */
+/*.child:first-child {*/
+/* 200px more than  others children */
+/* 1680 -3x -(x+200)=0 */
+/* x=370 */
+/*flex-basis: 200px;*/
+/* flex-shrink: 2; */
+/*}*/

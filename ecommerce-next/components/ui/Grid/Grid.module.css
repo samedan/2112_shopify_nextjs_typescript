@@ -27,5 +27,11 @@
   }
 }
 .layoutB {
-  color: blue;
+  /* 2nd and 4th element are larger */
+  & > *:nth-child(6n + 2),
+  & > *:nth-child(6n + 4) {
+    @screen lg {
+      @apply col-span-2 row-span-2;
+    }
+  }
 }

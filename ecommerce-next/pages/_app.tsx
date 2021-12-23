@@ -13,7 +13,7 @@ function MyApp({
   const Layout = Component.Layout ?? Noop;
 
   const ui = useUI();
-  console.log(ui);
+  // console.log(ui);
 
   return (
     <UIProvider>

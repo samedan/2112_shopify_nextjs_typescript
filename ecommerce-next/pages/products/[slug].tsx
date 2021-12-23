@@ -22,7 +22,12 @@ export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ slug: string }>) => {
   const config = getConfig();
-  const { product } = await getProduct(config);
+  // pass Variables to query
+
+  const { product } = await getProduct({
+    config,
+    variables: { slug: params?.slug },
+  });
   return {
     props: {
       product,

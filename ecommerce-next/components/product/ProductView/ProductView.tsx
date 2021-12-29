@@ -1,16 +1,19 @@
 import cn from "classnames";
-import { FC } from "react";
+import { FC, useState } from "react";
 import s from "./ProductView.module.css";
 import { Button, Container } from "@components/ui";
 import Image from "next/image";
 import { Product } from "@common/types/product";
-import { ProductSlider } from "@components/product";
+import { ProductSlider, Swatch } from "@components/product";
 
 interface Props {
   product: Product;
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+  const [choices, setChoices] = useState({});
+
+  console.log(choices);
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
@@ -40,14 +43,32 @@ const ProductView: FC<Props> = ({ product }) => {
         </div>
         <div className={s.sidebar}>
           <section>
-            <div className="pb-4">
-              <h2 className="uppercase font-medium">Color</h2>
-              <div className="flex flex-row py-4">Variant Options Here!</div>
-            </div>
-            <div className="pb-14 break-words w-full max-w-xl text-lg">
-              {product.description}
-            </div>
+            {product.options.map((option) => (
+              <div className="pb-4" key={`${product.id}-${option.displayName}`}>
+                <h2 className="uppercase font-medium">{option.displayName}</h2>
+                <div className="flex flex-row py-4">
+                  {option.values.map((optValue) => (
+                    <Swatch
+                      key={`${option.id}-${optValue.label}`}
+                      label={optValue.label}
+                      color={optValue.hexColor}
+                      variant={option.displayName}
+                      onClick={() => {
+                        setChoices({
+                          ...choices,
+                          [option.displayName.toLowerCase()]:
+                            optValue.label.toLowerCase(),
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
           </section>
+          <div className="pb-14 break-words w-full max-w-xl text-lg">
+            {product.description}
+          </div>
           <div>
             <Button className={s.button} onClick={() => alert("Click")}>
               Add to Cart
